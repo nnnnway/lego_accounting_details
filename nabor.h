@@ -10,6 +10,7 @@ class Nabor {
     QString nameNabor;
     float price;
     QString invetn_Number;
+    int id;
 
 public:
     Nabor();
@@ -20,11 +21,13 @@ public:
     QString getNameNabor();
     float getPrice();
     QString getInvetn_Number();
+    int getId();
 
     void setDetails(QList<Detail>* details);
     void setNameNabor(QString nameNabor);
     void setPrice(float price);
     void setInvetn_Number(QString invetn_Number);
+    void setId(int id);
 };
 
 #endif // NABOR_H

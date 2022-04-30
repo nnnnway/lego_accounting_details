@@ -19,25 +19,24 @@ DataBaseManager::DataBaseManager()
 }
 
 void DataBaseManager::initDataBase(){
-    query = QSqlQuery(db);
-    bool whatIsBull = query->exec("CREATE TABLE nabor(contact_id integer PRIMATY KEY, nameNabor text NOT NULL, invent_Number text NOT NULL, price Float NOT NULL)");
+    QSqlQuery query = QSqlQuery(db);
+    bool whatIsBull = query.exec("CREATE TABLE nabor(nabor_id integer PRIMATY KEY AUTOINCREMENT, nameNabor text NOT NULL, invent_Number text NOT NULL, price Float NOT NULL)");
 
     if(!whatIsBull){
         qDebug() <<"не уудаётся созд";
     }
 
-    whatIsBull = query->exec("CREATE TABLE uchyot(contact_id integer PRIMATY KEY, kol_vo integer NOT NULL, date text NOT NULL)");
+    whatIsBull = query.exec("CREATE TABLE uchyot(contact_id integer PRIMATY KEY AUTOINCREMENT, kol_vo integer NOT NULL, date text NOT NULL)");
 
     if(!whatIsBull){
         qDebug() <<"не уудаётся созд";
     }
 
-    whatIsBull = query->exec("CREATE TABLE detail(contact_id integer PRIMATY KEY, code integer NOT NULL, count integer NOT NULL, picture text ,name text NOT NULL)");
+    whatIsBull = query.exec("CREATE TABLE detail(contact_id integer PRIMATY KEY AUTOINCREMENT, code integer NOT NULL, count integer NOT NULL, picture text ,name text NOT NULL)");
 
     if(!whatIsBull){
         qDebug() <<"не уудаётся созд";
     }
-    delete query;
 }
 
 
@@ -48,7 +47,9 @@ bool DataBaseManager::insertNabor(Nabor* nabor){
     query.bindValue(":invetn_Number", nabor->getInvetn_Number());
     query.bindValue(":price", nabor->getPrice());
     bool whatIsBull = query.exec();
-    if(whatIsBull){
+    if(whatIsBull) {
+        int a = query.lastInsertId().toInt();
+        nabor->setId(a);
         return true;
     }
     return false;
@@ -69,7 +70,7 @@ bool DataBaseManager::insertDetail(Detail* detail){
 
 bool DataBaseManager::insertUchyot(Uchyot* uchyot){
     QSqlQuery query = QSqlQuery(db);
-    query.prepare("INSERT INTO uchyot (kol_vo, date,) VALUES (:kol_vo, :date)");
+    query.prepare("INSERT INTO uchyot (kol_vo, date) VALUES (:kol_vo, :date)");
     query.bindValue(":kol_vo", uchyot->getKol_vo());
     query.bindValue(":date", uchyot->getDate());
     bool whatIsBull = query.exec();
@@ -85,10 +86,11 @@ bool DataBaseManager::insertUchyot(Uchyot* uchyot){
 
 bool DataBaseManager::updateNabor(Nabor* upNabor){
     QSqlQuery query = QSqlQuery(db);
-    query.prepare("UPDATE nabor SET ContactName = 'nameNabor', 'invent_Number' = bu, 'price' = 10.0 WHERE condition");
-    query.bindValue(":nameNaboro", upNabor->getNameNabor());
+    query.prepare("UPDATE nabor SET nameNabor = :nameNabor, invent_Number = :invetn_Number, price = :price WHERE nabor_id = :nabor_id");
+    query.bindValue(":nameNabor", upNabor->getNameNabor());
     query.bindValue(":invetn_Number", upNabor->getInvetn_Number());
     query.bindValue(":price", upNabor->getPrice());
+    query.bindValue(":nabor_id", upNabor->getId());
     bool whatIsBull = query.exec();
     if(whatIsBull){
         return true;
@@ -127,10 +129,9 @@ bool DataBaseManager::updateUchyot(Uchyot* upUchyot){
 
 bool DataBaseManager::deleteNabor(Nabor* delNabor){
     QSqlQuery query = QSqlQuery(db);
-    query.prepare("DELETE FROM nabor = 'nameNabor', 'invent_Number', 'price'");
-    query.bindValue(":nameNaboro", delNabor->getNameNabor());
-    query.bindValue(":invetn_Number", delNabor->getInvetn_Number());
-    query.bindValue(":price", delNabor->getPrice());
+    query.prepare("DELETE FROM nabor WHERE nabor_id = :nabor_id");
+    query.bindValue(":nabor_id", delNabor->getId());
+
     bool whatIsBull = query.exec();
     if(whatIsBull){
         return true;

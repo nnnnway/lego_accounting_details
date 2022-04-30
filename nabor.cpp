@@ -6,6 +6,7 @@ Nabor::Nabor()
     nameNabor = "";
     price = 0.0;
     invetn_Number = "";
+    id = 0;
 }
 
 Nabor::~Nabor()
@@ -41,7 +42,15 @@ QString Nabor::getInvetn_Number()
     return invetn_Number;
 }
 
+int Nabor::getId(){
+    return id;
+}
+
 /* ............................... */
+
+void Nabor::setId(int id){
+    this->id = id;
+}
 
 void Nabor::setDetails(QList<Detail>* details)
 {
