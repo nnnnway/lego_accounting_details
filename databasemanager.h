@@ -9,9 +9,11 @@
 class DataBaseManager
 {
     QSqlDatabase db;
-    QSqlQuery* query;
 
 public:
+
+    void initDataBase();
+
     DataBaseManager();
     bool insertNabor(Nabor* naborr);
     bool insertDetail(Detail* detail);

@@ -15,8 +15,11 @@ DataBaseManager::DataBaseManager()
     }else{
         qDebug() << "no open";
     }
+    initDataBase();
+}
 
-    query = new QSqlQuery(db);
+void DataBaseManager::initDataBase(){
+    query = QSqlQuery(db);
     bool whatIsBull = query->exec("CREATE TABLE nabor(contact_id integer PRIMATY KEY, nameNabor text NOT NULL, invent_Number text NOT NULL, price Float NOT NULL)");
 
     if(!whatIsBull){
@@ -34,8 +37,9 @@ DataBaseManager::DataBaseManager()
     if(!whatIsBull){
         qDebug() <<"не уудаётся созд";
     }
-
+    delete query;
 }
+
 
 bool DataBaseManager::insertNabor(Nabor* nabor){
     QSqlQuery query = QSqlQuery(db);
@@ -76,7 +80,7 @@ bool DataBaseManager::insertUchyot(Uchyot* uchyot){
 }
 
 
- /* UPD UPD UPD UPD UPD UPD */
+/* UPD UPD UPD UPD UPD UPD */
 
 
 bool DataBaseManager::updateNabor(Nabor* upNabor){
@@ -133,7 +137,6 @@ bool DataBaseManager::deleteNabor(Nabor* delNabor){
     }
     return false;
 }
-
 
 
 
