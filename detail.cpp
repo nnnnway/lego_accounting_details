@@ -7,6 +7,7 @@ Detail::Detail()
     picture = nullptr;
     name = "";
     uchyot = nullptr;
+    id = 0;
 }
 
 Detail::~Detail()
@@ -49,6 +50,10 @@ QList<Uchyot>* Detail::getUcyot()
     return uchyot;
 }
 
+int Detail::getId(){
+    return id;
+}
+
 /*  .........................................  */
 
 void Detail::setCode(int code)
@@ -74,4 +79,8 @@ void Detail::setPicture(QImage* picture)
 void Detail::setUchyot(QList<Uchyot>* uchyot)
 {
     this->uchyot = uchyot;
+}
+
+void Detail::setId(int id){
+    this->id = id;
 }

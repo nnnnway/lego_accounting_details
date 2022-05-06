@@ -9,19 +9,23 @@
 class DataBaseManager
 {
     QSqlDatabase db;
+    static DataBaseManager* singleton;
+
+    DataBaseManager();
 
 public:
+    static DataBaseManager* getInstanse();
 
     void initDataBase();
 
-    DataBaseManager();
-    bool insertNabor(Nabor* naborr);
+    bool insertNabor(Nabor* nabor);
     bool insertDetail(Detail* detail);
     bool insertUchyot(Uchyot* uchyot);
 
     bool updateNabor(Nabor* upNabor);
     bool updateDetail(Detail* upDetail);
     bool updateUchyot(Uchyot* upUchyot);
+
 
     bool deleteNabor(Nabor* delNabor);
     bool deleteDetail(Detail* delDetail);

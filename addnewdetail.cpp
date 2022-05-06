@@ -12,5 +12,3 @@ AddNewDetail::~AddNewDetail()
 {
     delete ui;
 }
-
-

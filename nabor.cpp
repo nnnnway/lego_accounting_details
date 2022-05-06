@@ -29,7 +29,11 @@ QList<Detail>* Nabor::getDetails()
 
 QString Nabor::getNameNabor()
 {
-    return nameNabor;
+    return getNameNabor();
+}
+
+int Nabor::getId(){
+    return id;
 }
 
 float Nabor::getPrice()
@@ -42,19 +46,15 @@ QString Nabor::getInvetn_Number()
     return invetn_Number;
 }
 
-int Nabor::getId(){
-    return id;
-}
-
 /* ............................... */
-
-void Nabor::setId(int id){
-    this->id = id;
-}
 
 void Nabor::setDetails(QList<Detail>* details)
 {
     this->details = details;
+}
+
+void Nabor::setId(int id){
+    this->id = id;
 }
 
 void Nabor::setNameNabor(QString nameNabor)

@@ -6,6 +6,7 @@
 class Uchyot {
     int kol_vo;
     QDate date;
+    int id;
 
 public:
     Uchyot();
@@ -14,9 +15,11 @@ public:
 
     int getKol_vo();
     QDate getDate();
+    int getId();
 
     void setKol_vo(int kol_vo);
     void setDate(QDate date);
+    void setId(int id);
 };
 
 #endif // UCHYOT_H

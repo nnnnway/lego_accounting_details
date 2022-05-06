@@ -19,6 +19,7 @@ private:
     Ui::NewNaborForm* ui;
     AddNewDetail* form;
 
+
 private slots:
     void on_pushButton_released();
     void on_lineEdit_accepted();

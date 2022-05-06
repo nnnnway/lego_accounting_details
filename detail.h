@@ -12,6 +12,7 @@ class Detail {
     QImage* picture;
     QString name;
     QList<Uchyot>* uchyot;
+    int id;
 
 public:
     Detail();
@@ -23,12 +24,14 @@ public:
     QImage* getPicture();
     QString getName();
     QList<Uchyot>* getUcyot();
+    int getId();
 
     void setCode(int code);
     void setCount(int count);
     void setPicture(QImage* picture);
     void setName(QString name);
     void setUchyot(QList<Uchyot>* uchyot);
+    void setId(int id);
 };
 
 #endif // DETAIL_H
