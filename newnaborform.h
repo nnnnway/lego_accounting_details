@@ -22,7 +22,7 @@ private:
 
 private slots:
     void on_pushButton_released();
-    void on_lineEdit_accepted();
+    void on_buttonBox_accepted();
 };
 
 #endif // NEWNABORFORM_H

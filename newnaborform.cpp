@@ -21,7 +21,7 @@ void NewNaborForm::on_pushButton_released()
     form->show();
 }
 
-void NewNaborForm::on_lineEdit_accepted(){
+void NewNaborForm::on_buttonBox_accepted(){
     QString name = ui->lineEdit->text();
     QString price = ui->lineEdit_2->text();
     QString invetn_Number = ui->lineEdit_3->text();

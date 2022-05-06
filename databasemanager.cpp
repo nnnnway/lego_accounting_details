@@ -1,12 +1,14 @@
 #include "databasemanager.h"
+
 #include <QSqlDatabase>
 #include <QDebug>
+#include <QSqlError>
 
 DataBaseManager* DataBaseManager::getInstanse(){
-    if (singleton == nullptr) {
-        singleton = new DataBaseManager();
+    if (DataBaseManager::singleton == nullptr) {
+        DataBaseManager::singleton = new DataBaseManager();
     }
-    return singleton;
+    return DataBaseManager::singleton;
 }
 
 DataBaseManager::DataBaseManager()
@@ -24,7 +26,7 @@ DataBaseManager::DataBaseManager()
 
 void DataBaseManager::initDataBase(){
     QSqlQuery query = QSqlQuery(db);
-    bool whatIsBull = query.exec("CREATE TABLE nabor(nabor_id integer PRIMATY KEY AUTOINCREMENT, nameNabor text NOT NULL, invent_Number text NOT NULL, price Float NOT NULL, FOREIGN KEY nabor_id REFERENCES nabor(id))");
+    bool whatIsBull = query.exec("CREATE TABLE nabor(nabor_id INTEGER, nameNabor TEXT NOT NULL, invent_Number TEXT NOT NULL, price float NOT NULL, PRIMARY KEY(nabor_id AUTOINCREMENT))");
 
     if(!whatIsBull){
         qDebug() <<"не уудаётся созд";
@@ -58,6 +60,7 @@ bool DataBaseManager::insertNabor(Nabor *nabor){
         nabor->setId(a);
         return true;
     }
+    qDebug() << "не удаётся записать" << query.lastError().driverText();
     return false;
 }
 
