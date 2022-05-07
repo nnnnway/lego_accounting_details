@@ -7,12 +7,14 @@
 #include <QString>
 
 class Detail {
+
+private:
+    int id;
     int code;
     int count;
     QImage* picture;
     QString name;
     QList<Uchyot>* uchyot;
-    int id;
 
 public:
     Detail();

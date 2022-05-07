@@ -47,7 +47,7 @@
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QLineEdit" name="lineEdit"/>
+     <widget class="QLineEdit" name="nameLine"/>
     </item>
     <item row="1" column="0">
      <widget class="QLabel" name="label_2">
@@ -57,7 +57,7 @@
      </widget>
     </item>
     <item row="1" column="1">
-     <widget class="QLineEdit" name="lineEdit_2"/>
+     <widget class="QLineEdit" name="priceLine"/>
     </item>
     <item row="2" column="0">
      <widget class="QLabel" name="label_3">
@@ -67,7 +67,7 @@
      </widget>
     </item>
     <item row="2" column="1">
-     <widget class="QLineEdit" name="lineEdit_3"/>
+     <widget class="QLineEdit" name="invent_Number_Line"/>
     </item>
    </layout>
   </widget>
@@ -92,7 +92,7 @@
     <rect>
      <x>10</x>
      <y>160</y>
-     <width>411</width>
+     <width>651</width>
      <height>231</height>
     </rect>
    </property>
@@ -100,7 +100,7 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>290</x>
+     <x>540</x>
      <y>130</y>
      <width>51</width>
      <height>23</height>
@@ -116,7 +116,7 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>350</x>
+     <x>610</x>
      <y>130</y>
      <width>51</width>
      <height>23</height>
