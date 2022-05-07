@@ -8,16 +8,19 @@
 
 class DataBaseManager
 {
+private:
     QSqlDatabase db;
     static DataBaseManager* singleton;
 
+private:
     DataBaseManager();
+    bool initDataBase();
 
 public:
     static DataBaseManager* getInstanse();
+    ~DataBaseManager();
 
-    void initDataBase();
-
+public:
     bool insertNabor(Nabor* nabor);
     bool insertDetail(Detail* detail);
     bool insertUchyot(Uchyot* uchyot);
@@ -25,7 +28,6 @@ public:
     bool updateNabor(Nabor* upNabor);
     bool updateDetail(Detail* upDetail);
     bool updateUchyot(Uchyot* upUchyot);
-
 
     bool deleteNabor(Nabor* delNabor);
     bool deleteDetail(Detail* delDetail);

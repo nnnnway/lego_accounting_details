@@ -6,7 +6,7 @@
 #include <QString>
 
 class Nabor {
-    QList<Detail>* details;
+    QList<Detail*>* details;
     QString nameNabor;
     float price;
     QString invetn_Number;
@@ -17,13 +17,13 @@ public:
     ~Nabor();
     Nabor(Nabor& nabor);
 
-    QList<Detail>* getDetails();
+    QList<Detail*>* getDetails();
     QString getNameNabor();
     float getPrice();
     QString getInvetn_Number();
     int getId();
 
-    void setDetails(QList<Detail>* details);
+    void setDetails(QList<Detail*>* details);
     void setNameNabor(QString nameNabor);
     void setPrice(float price);
     void setInvetn_Number(QString invetn_Number);

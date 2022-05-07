@@ -23,36 +23,36 @@
     </rect>
    </property>
    <property name="text">
-    <string>код</string>
+    <string>Код</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
      <x>230</x>
-     <y>90</y>
+     <y>110</y>
      <width>60</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>кол-во</string>
+    <string>Кол-во</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
      <x>230</x>
-     <y>120</y>
+     <y>170</y>
      <width>60</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>название</string>
+    <string>Название</string>
    </property>
   </widget>
-  <widget class="QTextEdit" name="textEdit">
+  <widget class="QTextEdit" name="code">
    <property name="geometry">
     <rect>
      <x>310</x>
@@ -62,37 +62,145 @@
     </rect>
    </property>
   </widget>
-  <widget class="QTextEdit" name="textEdit_2">
+  <widget class="QTextEdit" name="count">
    <property name="geometry">
     <rect>
      <x>310</x>
-     <y>90</y>
+     <y>110</y>
      <width>151</width>
      <height>16</height>
     </rect>
    </property>
   </widget>
-  <widget class="QTextEdit" name="textEdit_3">
+  <widget class="QTextEdit" name="name">
    <property name="geometry">
     <rect>
      <x>310</x>
-     <y>120</y>
+     <y>170</y>
      <width>151</width>
      <height>16</height>
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="save">
    <property name="geometry">
     <rect>
-     <x>450</x>
-     <y>200</y>
+     <x>460</x>
+     <y>270</y>
      <width>75</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
-    <string>OK</string>
+    <string>Сохранить</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="select_image">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>220</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Выбрать</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>220</y>
+     <width>61</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Картинка</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="close">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>270</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Закрыть</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="codeErrorLabel">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>80</y>
+     <width>241</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>6</pointsize>
+     <weight>75</weight>
+     <italic>true</italic>
+     <bold>true</bold>
+     <underline>true</underline>
+    </font>
+   </property>
+   <property name="text">
+    <string>Вводить можно только цифры</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="countErrorLabel">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>130</y>
+     <width>201</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>6</pointsize>
+     <weight>75</weight>
+     <italic>true</italic>
+     <bold>true</bold>
+     <underline>true</underline>
+    </font>
+   </property>
+   <property name="text">
+    <string>Вводить можно только цифры</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="nameErrorLabel">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>190</y>
+     <width>161</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>6</pointsize>
+     <weight>75</weight>
+     <italic>true</italic>
+     <bold>true</bold>
+     <underline>true</underline>
+    </font>
+   </property>
+   <property name="text">
+    <string>Введите название детали</string>
    </property>
   </widget>
  </widget>

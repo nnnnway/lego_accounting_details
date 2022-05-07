@@ -3,6 +3,11 @@
 #include <QSqlDatabase>
 #include <QDebug>
 #include <QSqlError>
+#include <QFile>
+
+#define DELETE_FILE
+
+DataBaseManager* DataBaseManager::singleton = nullptr;
 
 DataBaseManager* DataBaseManager::getInstanse(){
     if (DataBaseManager::singleton == nullptr) {
@@ -13,6 +18,13 @@ DataBaseManager* DataBaseManager::getInstanse(){
 
 DataBaseManager::DataBaseManager()
 {
+#ifdef DELETE_FILE
+    QFile file("./testDB.db");
+    if (file.exists()){
+        file.remove();
+    }
+#endif
+
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("./testDB.db");
 
@@ -24,26 +36,48 @@ DataBaseManager::DataBaseManager()
     initDataBase();
 }
 
-void DataBaseManager::initDataBase(){
+DataBaseManager::~DataBaseManager(){
+    db.commit();
+    db.close();
+}
+
+bool DataBaseManager::initDataBase(){
     QSqlQuery query = QSqlQuery(db);
-    bool whatIsBull = query.exec("CREATE TABLE nabor(nabor_id INTEGER, nameNabor TEXT NOT NULL, invent_Number TEXT NOT NULL, price float NOT NULL, PRIMARY KEY(nabor_id AUTOINCREMENT))");
 
+    bool whatIsBull = query.exec("CREATE TABLE nabor(nabor_id INTEGER, "
+                                 "nameNabor TEXT NOT NULL, "
+                                 "invent_Number TEXT NOT NULL, "
+                                 "price float NOT NULL, "
+                                 "PRIMARY KEY(nabor_id AUTOINCREMENT))");
     if(!whatIsBull){
-        qDebug() <<"не уудаётся созд";
+        qDebug() << "ERROR CREATE TABLE nabor" << query.lastError().databaseText();
+        return false;
     }
 
-
-    whatIsBull = query.exec("CREATE TABLE uchyot(uchyot_id integer PRIMATY KEY AUTOINCREMENT, kol_vo integer NOT NULL, date text NOT NULL, detail_id integer, FOREIGN KEY detail_id REFERENCES detail(detail_id))");
-
+    whatIsBull = query.exec("CREATE TABLE detail(detail_id INTEGER, "
+                            "code INTEGER NOT NULL, "
+                            "count INTEGER NOT NULL, "
+                            "picture TEXT NOT NULL DEFAULT 'no_name.jpg', "
+                            "name TEXT NOT NULL, "
+                            "nabor_id INTEGER, "
+                            "PRIMARY KEY(detail_id AUTOINCREMENT), "
+                            "FOREIGN KEY (nabor_id) REFERENCES nabor(nabor_id))");
     if(!whatIsBull){
-        qDebug() <<"не уудаётся созд";
+       qDebug() << "ERROR CREATE TABLE detail" << query.lastError().databaseText();
+       return false;
     }
 
-    whatIsBull = query.exec("CREATE TABLE detail(detail_id integer PRIMATY KEY AUTOINCREMENT, code integer NOT NULL, count integer NOT NULL,picture text ,name text NOT NULL, nabor_id integer, FOREIGN KEY nabor_id REFERENCES nabor(nabor_id))");
-
+    whatIsBull = query.exec("CREATE TABLE uchyot(uchyot_id INTEGER, "
+                            "kol_vo INTEGER NOT NULL, "
+                            "date TEXT NOT NULL, "
+                            "detail_id INTEGER, "
+                            "PRIMARY KEY(uchyot_id AUTOINCREMENT), "
+                            "FOREIGN KEY (detail_id) REFERENCES detail(detail_id))");
     if(!whatIsBull){
-        qDebug() <<"не уудаётся созд";
+       qDebug() << "ERROR CREATE TABLE uchyot" << query.lastError().databaseText();
+       return false;
     }
+    return true;
 }
 
 /* INS INS INS INS INS INS INS */
@@ -60,23 +94,24 @@ bool DataBaseManager::insertNabor(Nabor *nabor){
         nabor->setId(a);
         return true;
     }
-    qDebug() << "не удаётся записать" << query.lastError().driverText();
+    qDebug() << "ERROR RECORD nabor" << query.lastError().databaseText();
     return false;
 }
 
 bool DataBaseManager::insertDetail(Detail *detail){
     QSqlQuery query = QSqlQuery(db);
-    query.prepare("INSERT INTO detail (code, count, name) VALUES (:code, :count, :name)");
+    query.prepare("INSERT INTO detail (code, count, name, picture) VALUES (:code, :count, :name, :picture)");
     query.bindValue(":code", detail->getCode());
     query.bindValue(":count", detail->getCount());
     query.bindValue(":name", detail->getName());
- //   query.bindValue(":picture", detail->getPicture().)
+//    query.bindValue(":picture", detail->getPicture()->fileName());
     bool whatIsBull = query.exec();
     if(whatIsBull){
         int a = query.lastInsertId().toInt();
         detail->setId(a);
         return true;
     }
+    qDebug() << "ERROR RECORD detail" << query.lastError().databaseText();
     return false;
 }
 

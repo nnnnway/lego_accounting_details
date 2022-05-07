@@ -22,14 +22,14 @@ Nabor::Nabor(Nabor& nabor)
     invetn_Number = nabor.invetn_Number;
 }
 
-QList<Detail>* Nabor::getDetails()
+QList<Detail*>* Nabor::getDetails()
 {
     return details;
 }
 
 QString Nabor::getNameNabor()
 {
-    return getNameNabor();
+    return nameNabor;
 }
 
 int Nabor::getId(){
@@ -48,7 +48,7 @@ QString Nabor::getInvetn_Number()
 
 /* ............................... */
 
-void Nabor::setDetails(QList<Detail>* details)
+void Nabor::setDetails(QList<Detail*>* details)
 {
     this->details = details;
 }
