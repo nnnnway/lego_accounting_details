@@ -15,6 +15,7 @@ private:
 private:
     DataBaseManager();
     bool initDataBase();
+    bool insertSettings();
 
 public:
     static DataBaseManager* getInstanse();
@@ -22,7 +23,7 @@ public:
 
 public:
     bool insertNabor(Nabor* nabor);
-    bool insertDetail(Detail* detail);
+    bool insertDetail(Detail* detail, int naborId);
     bool insertUchyot(Uchyot* uchyot);
 
     bool updateNabor(Nabor* upNabor);

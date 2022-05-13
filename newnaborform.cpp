@@ -57,7 +57,9 @@ void NewNaborForm::addModelItem(Detail* detail){
 
     QStandardItem *itemCode = new QStandardItem(QString::number(detail->getCode()));
     QStandardItem *itemPicture = new QStandardItem();
-    itemPicture->setData(QVariant(QPixmap::fromImage(*detail->getPicture())), Qt::DecorationRole);
+    if (detail->getPicture() != nullptr) {
+        itemPicture->setData(QVariant(QPixmap::fromImage(*detail->getPicture())), Qt::DecorationRole);
+    }
     QStandardItem *itemName = new QStandardItem(detail->getName());
     QStandardItem *itemCount = new QStandardItem(QString::number(detail->getCount()));
 
@@ -74,7 +76,6 @@ void NewNaborForm::on_buttonBox_accepted(){
     QString price = ui->priceLine->text();
     QString invetn_Number = ui->invent_Number_Line->text();
 
-
     bool isOk = false;
     bool hasError = false;
 
@@ -90,7 +91,7 @@ void NewNaborForm::on_buttonBox_accepted(){
         hasError = true;
     }
 
-    if(invetn_Number < 1){
+    if(invetn_Number.size() < 1){
         hasError = true;
     }
 
@@ -110,21 +111,3 @@ void NewNaborForm::on_buttonBox_accepted(){
     db->insertNabor(&nabor);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

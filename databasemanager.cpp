@@ -5,7 +5,7 @@
 #include <QSqlError>
 #include <QFile>
 
-#define DELETE_FILE
+//#define DELETE_FILE
 
 DataBaseManager* DataBaseManager::singleton = nullptr;
 
@@ -18,10 +18,16 @@ DataBaseManager* DataBaseManager::getInstanse(){
 
 DataBaseManager::DataBaseManager()
 {
-#ifdef DELETE_FILE
+    bool isNeedInitDB = false;
     QFile file("./testDB.db");
-    if (file.exists()){
-        file.remove();
+    if (file.exists() == false){
+        isNeedInitDB = true;
+    }
+#ifdef DELETE_FILE
+    else
+    {
+         file.remove();
+         isNeedInitDB = true;
     }
 #endif
 
@@ -33,7 +39,9 @@ DataBaseManager::DataBaseManager()
     }else{
         qDebug() << "no open";
     }
-    initDataBase();
+    if (isNeedInitDB){
+        initDataBase();
+    }
 }
 
 DataBaseManager::~DataBaseManager(){
@@ -77,7 +85,17 @@ bool DataBaseManager::initDataBase(){
        qDebug() << "ERROR CREATE TABLE uchyot" << query.lastError().databaseText();
        return false;
     }
-    return true;
+
+    whatIsBull = query.exec("CREATE TABLE settings(id INTEGER, "
+                            "key TEXT NOT NULL, "
+                            "value TEXT NOT NULL, "
+                            "PRIMARY KEY(id AUTOINCREMENT))");
+    if(!whatIsBull){
+       qDebug() << "ERROR CREATE TABLE settings" << query.lastError().databaseText();
+       return false;
+    }
+
+    return insertSettings();
 }
 
 /* INS INS INS INS INS INS INS */
@@ -92,19 +110,31 @@ bool DataBaseManager::insertNabor(Nabor *nabor){
     if(whatIsBull){
         int a = query.lastInsertId().toInt();
         nabor->setId(a);
+        if (nabor->getDetails() == nullptr) {
+            return true;
+        }
+        for (Detail *detail : *nabor->getDetails()){
+            insertDetail(detail, nabor->getId());
+        }
         return true;
     }
     qDebug() << "ERROR RECORD nabor" << query.lastError().databaseText();
     return false;
 }
 
-bool DataBaseManager::insertDetail(Detail *detail){
+bool DataBaseManager::insertDetail(Detail *detail, int naborId){
     QSqlQuery query = QSqlQuery(db);
-    query.prepare("INSERT INTO detail (code, count, name, picture) VALUES (:code, :count, :name, :picture)");
+    query.prepare("INSERT INTO detail (code, count, name, picture, nabor_id) VALUES (:code, :count, :name, :picture, :nabor_id)");
     query.bindValue(":code", detail->getCode());
     query.bindValue(":count", detail->getCount());
     query.bindValue(":name", detail->getName());
-//    query.bindValue(":picture", detail->getPicture()->fileName());
+    query.bindValue(":nabor_id", naborId);
+    if (detail->getPicture() == nullptr) {
+        query.bindValue(":picture", "no_name.jpg");
+    } else {
+
+    }
+//
     bool whatIsBull = query.exec();
     if(whatIsBull){
         int a = query.lastInsertId().toInt();
@@ -126,6 +156,21 @@ bool DataBaseManager::insertUchyot(Uchyot* uchyot){
         uchyot->setId(a);
         return true;
     }
+     qDebug() << "ERROR RECORD uchyot" << query.lastError().databaseText();
+    return false;
+}
+
+bool DataBaseManager::insertSettings(){
+    QSqlQuery query = QSqlQuery(db);
+    query.prepare("INSERT INTO settings (id, key, value) VALUES (:id1, :key, :value)");
+    query.bindValue(":id1", 1);
+    query.bindValue(":key", "version");
+    query.bindValue(":value", "1");
+    bool whatIsBull = query.exec();
+    if(whatIsBull){
+        return true;
+    }
+    qDebug() << "ERROR RECORD settings" << query.lastError().databaseText();
     return false;
 }
 
@@ -209,20 +254,3 @@ bool DataBaseManager::deleteUchyot(Uchyot* delUchyot){
     }
     return false;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
