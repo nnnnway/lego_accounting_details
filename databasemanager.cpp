@@ -184,7 +184,7 @@ bool DataBaseManager::insertSettings()
 bool DataBaseManager::updateNabor(Nabor* upNabor)
 {
     QSqlQuery query = QSqlQuery(db);
-    query.prepare("UPDATE nabor SET nameNabor = :nameNabor, invetn_Number = :invetn_Number, price = :price WHERE nabor_id = :nabor_id");
+    query.prepare("UPDATE nabor SET nameNabor = :nameNabor, invent_Number = :invent_Number, price = :price WHERE nabor_id = :nabor_id");
     query.bindValue(":nameNabor", upNabor->getNameNabor());
     query.bindValue(":invent_Number", upNabor->getInvetn_Number());
     query.bindValue(":price", upNabor->getPrice());
