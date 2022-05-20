@@ -6,6 +6,7 @@
 #include <QStandardItemModel>
 
 #include "detail.h"
+#include "nabor.h"
 
 namespace Ui {
 class NewNaborForm;
@@ -19,10 +20,12 @@ private:
     AddNewDetail* form;
     QList<Detail*>* details;
     QStandardItemModel* model;
+    Nabor* nabor;
 
 public:
     explicit NewNaborForm(QWidget* parent = nullptr);
     ~NewNaborForm();
+    void setNabor(Nabor* nabor);
 
 private:
     void setupModel();

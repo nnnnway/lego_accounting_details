@@ -5,7 +5,7 @@
 #include <QStandardItem>
 #include <QPixmap>
 
-#include "nabor.h"
+
 #include "databasemanager.h"
 
 NewNaborForm::NewNaborForm(QWidget* parent)
@@ -50,6 +50,13 @@ void NewNaborForm::on_pushButton_released()
             form = nullptr;
         }
     }
+}
+
+void NewNaborForm::setNabor(Nabor* nabor) {
+    ui->nameLine->setText(nabor->getNameNabor());
+    ui->invent_Number_Line->setText(nabor->getInvetn_Number());
+    ui->priceLine->setText(QString::number(nabor->getPrice()));
+    this->nabor = nabor;
 }
 
 void NewNaborForm::addModelItem(Detail* detail){
@@ -99,15 +106,31 @@ void NewNaborForm::on_buttonBox_accepted(){
         return;
     }
 
-
-
-    Nabor nabor;
-    nabor.setNameNabor(name);
-    nabor.setPrice(priceLine);
-    nabor.setInvetn_Number(invetn_Number);
-    nabor.setDetails(details);
-
     DataBaseManager* db = DataBaseManager::getInstanse();
-    db->insertNabor(&nabor);
 
+    if(nabor == nullptr) {
+        Nabor nabor;
+        nabor.setNameNabor(name);
+        nabor.setPrice(priceLine);
+        nabor.setInvetn_Number(invetn_Number);
+        nabor.setDetails(details);
+        db->insertNabor(&nabor);
+    } else {
+        nabor->setNameNabor(name);
+        nabor->setInvetn_Number(invetn_Number);
+        nabor->setPrice(priceLine);
+
+        db->updateNabor(nabor);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+

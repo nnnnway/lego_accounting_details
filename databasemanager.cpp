@@ -193,6 +193,7 @@ bool DataBaseManager::updateNabor(Nabor* upNabor)
     if (whatIsBull) {
         return true;
     }
+    qDebug() << "ERROR RECORD nabor" << query.lastError().databaseText();
     return false;
 }
 
