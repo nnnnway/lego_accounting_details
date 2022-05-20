@@ -1,13 +1,14 @@
 #ifndef DATABASEMANAGER_H
 #define DATABASEMANAGER_H
 
+#include <QList>
 #include <QSqlDatabase>
 #include <QSqlQuery>
 
 #include "nabor.h"
+#include "uchyot.h"
 
-class DataBaseManager
-{
+class DataBaseManager {
 private:
     QSqlDatabase db;
     static DataBaseManager* singleton;
@@ -20,6 +21,8 @@ private:
 public:
     static DataBaseManager* getInstanse();
     ~DataBaseManager();
+    QList<Nabor*>* getNabor();
+    QList<Uchyot*>* thenotorious();
 
 public:
     bool insertNabor(Nabor* nabor);

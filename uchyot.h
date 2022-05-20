@@ -12,6 +12,7 @@ public:
     Uchyot();
     ~Uchyot();
     Uchyot(Uchyot& uchyot);
+    Uchyot(int uchyot_id, int kol_vo, QString date);
 
     int getKol_vo();
     QDate getDate();

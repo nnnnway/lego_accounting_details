@@ -17,6 +17,12 @@ Uchyot::Uchyot(Uchyot& uchyot)
     date = uchyot.date;
 }
 
+Uchyot::Uchyot(int uchyot_id, int kol_vo, QString date)
+{
+    this->kol_vo = kol_vo;
+    this->id = uchyot_id;
+}
+
 int Uchyot::getKol_vo()
 {
     return kol_vo;
@@ -27,7 +33,8 @@ QDate Uchyot::getDate()
     return date;
 }
 
-int Uchyot::getId(){
+int Uchyot::getId()
+{
     return id;
 }
 
@@ -43,6 +50,7 @@ void Uchyot::setDate(QDate date)
     this->date = date;
 }
 
-void Uchyot::setId(int id){
+void Uchyot::setId(int id)
+{
     this->id = id;
 }

@@ -16,6 +16,7 @@ public:
     Nabor();
     ~Nabor();
     Nabor(Nabor& nabor);
+    Nabor(int x, QString y, QString z, float t);
 
     QList<Detail*>* getDetails();
     QString getNameNabor();
