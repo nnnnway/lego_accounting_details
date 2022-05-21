@@ -18,6 +18,11 @@ NewNaborForm::NewNaborForm(QWidget* parent)
     model = new QStandardItemModel(this);
     ui->tableView->setModel(model);
     setupModel();
+
+    connect(ui->tableView,
+        SIGNAL(clicked(QModelIndex)),
+        this,
+        SLOT(clicked(QModelIndex)));
 }
 
 NewNaborForm::~NewNaborForm()
@@ -123,6 +128,76 @@ void NewNaborForm::on_buttonBox_accepted(){
         db->updateNabor(nabor);
     }
 }
+
+void NewNaborForm::on_deleteButton_pressed(){
+    int row = indx.row();
+    int code = indx.sibling(row, 0).data().toInt();
+    Detail* delDetail = nullptr;
+
+    for(Detail* n: *(nabor->getDetails())){
+        if(n->getCode() == code) {
+            delDetail = n;
+            break;
+        }
+    }
+
+    if (delDetail != nullptr){
+        DataBaseManager::getInstanse()->deleteDetail(delDetail);
+    }
+
+    for(Detail* n: *details){
+        if(n->getCode() == code) {
+            details->removeOne(n);
+            break;
+        }
+    }
+
+    model->removeRow(indx.row());
+}
+
+void NewNaborForm::clicked(QModelIndex index)
+{
+    ui->deleteButton->setEnabled(true);
+
+    int row = index.row();
+    int idNabor = index.sibling(row, 0).data().toInt();
+    idDetailsSelect = idNabor;
+    this->indx = index;
+}
+
+void NewNaborForm::doubleClicked(QModelIndex indx){
+    Detail* delNabor = nullptr;
+
+    for(Detail* n: *details){
+        if(n->getId() == idDetailsSelect) {
+            delNabor = n;
+        }
+    }
+
+    if (delNabor != nullptr){
+        form = new AddNewDetail();
+        form->setDetail(delNabor);
+        form->show();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

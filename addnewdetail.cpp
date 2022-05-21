@@ -36,6 +36,13 @@ Detail* AddNewDetail::getDetail(){
     return detail;
 }
 
+void AddNewDetail::setDetail(Detail* x){
+    ui->code->setText(QString::number(detail->getCode()));
+    ui->count->setText(QString::number(detail->getCount()));
+    ui->name->setText(detail->getName());
+    this->detail = x;
+}
+
 void AddNewDetail::on_select_image_pressed() {
     // Определить класс диалогового окна файла
     QFileDialog *fileDialog = new QFileDialog(this);
@@ -95,7 +102,10 @@ void AddNewDetail::on_save_pressed(){
         return;
     }
 
-    detail = new Detail();
+
+    if (detail == nullptr){
+        detail = new Detail();
+    }
 
     detail->setCode(code_);
     detail->setCount(count_);

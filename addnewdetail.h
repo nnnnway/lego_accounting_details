@@ -22,6 +22,8 @@ public:
     explicit AddNewDetail(QWidget* parent = nullptr);
     ~AddNewDetail();
 
+    void setDetail(Detail* x);
+
     Detail* getDetail();
 
 private:

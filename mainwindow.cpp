@@ -77,7 +77,10 @@ void MainWindow::doubleClicked(QModelIndex index)
 {
     int row = index.row();
     int idNabor = index.sibling(row, 0).data().toInt();
-    qDebug() << idNabor;
+    idNaborSelect = idNabor;
+    this->index = index;
+
+    on_editNabor_pressed();
 }
 
 void MainWindow::clicked(QModelIndex index)
@@ -121,6 +124,17 @@ void MainWindow::on_deleteNabor_pressed(){
     }
     warThunder->removeRow(index.row());
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

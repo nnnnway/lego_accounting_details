@@ -21,6 +21,8 @@ private:
     QList<Detail*>* details;
     QStandardItemModel* model;
     Nabor* nabor;
+    int idDetailsSelect;
+    QModelIndex indx;
 
 public:
     explicit NewNaborForm(QWidget* parent = nullptr);
@@ -34,6 +36,10 @@ private:
 private slots:
     void on_pushButton_released();
     void on_buttonBox_accepted();
+    void on_deleteButton_pressed();
+    void clicked(QModelIndex indx);
+    void doubleClicked(QModelIndex indx);
+
 };
 
 #endif // NEWNABORFORM_H
